@@ -4,3 +4,5 @@ Revision history for Perl extension Mail::GnuPG.
 	- original version; created by h2xs 1.21 with options
 		-X Mail::GnuPG
 
+0.02  Thu Mar 27 20:32:21 PST 2003
+        - Update Makefile.PL to set prereqs

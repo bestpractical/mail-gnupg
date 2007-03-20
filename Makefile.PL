@@ -4,8 +4,14 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     'NAME'		=> 'Mail::GnuPG',
     'VERSION_FROM'	=> 'GnuPG.pm', # finds $VERSION
-    'PREREQ_PM'		=> {}, # e.g., Module::Name => 1.1
-    ($] >= 5.005 ?    ## Add these new keywords supported since 5.005
-      (ABSTRACT_FROM => 'GnuPG.pm', # retrieve abstract from module
-       AUTHOR     => 'A. U. Thor <a.u.thor@a.galaxy.far.far.away>') : ()),
+    'PREREQ_PM'		=> {
+			    'GnuPG::Interface' => 0,
+			    'IO::Handle'       => 0,
+			    'MIME::Entity'     => 0,
+			    'File::Temp'       => 0,
+			    'MIME::Parser'     => 0,
+			    'Mail::Address'    => 0,
+			   },
+    ABSTRACT_FROM       => 'GnuPG.pm', # retrieve abstract from module
+    AUTHOR              => 'Robert Spier <rspier@cpan.org>',
 );
