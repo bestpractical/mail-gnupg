@@ -11,6 +11,7 @@ WriteMakefile(
 			    'File::Temp'       => 0,
 			    'MIME::Parser'     => 0,
 			    'Mail::Address'    => 0,
+			    'Test::More',      => 0,
 			   },
     ABSTRACT_FROM       => 'GnuPG.pm', # retrieve abstract from module
     AUTHOR              => 'Robert Spier <rspier@cpan.org>',
