@@ -21,7 +21,7 @@ use 5.006;
 use strict;
 use warnings;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 use GnuPG::Interface;
 use IO::Handle;
@@ -50,10 +50,10 @@ sub new {
   my $proto = shift;
   my $class = ref($proto) || $proto;
   my $self  = {
-	       key    => undef,
-	       keydir => undef,
-	       passphrase => "",
-	       gpg_path => "gpg",
+	       key	    => undef,
+	       keydir	    => undef,
+	       passphrase   => "",
+	       gpg_path	    => "gpg",
 	       @_
 	      };
   $self->{last_message} = [];
@@ -70,11 +70,10 @@ sub _set_options {
 				(homedir => $self->{keydir}) : () ),
 			      ( defined $self->{key} ?
 				( default_key => $self->{key} ) : () ),
-			      ( defined $self->{gpg_path} ?
-				( call => $self->{gpg_path} ) : () ),
 #			      ( defined $self->{passphrase} ?
 #				( passphrase => $self->{passphrase} ) : () ),
 			    );
+  $gnupg->call( $self->{gpg_path} ) if defined $self->{gpg_path};
 }
 
 
@@ -307,14 +306,16 @@ Does the keyring have a public key for the specified email address?
 sub has_public_key {
   my ($self,$address) = @_;
 
+  # cache aging is disabled until someone has enough time to test this
   if (0) {
-  _rebuild_key_cache() unless ($key_cache_age);
+    $self->_rebuild_key_cache() unless ($key_cache_age);
 
-  if ( $key_cache_age && ( time() - $key_cache_expire > $key_cache_age )) {
-    _rebuild_key_cache();
+    if ( $key_cache_age && ( time() - $key_cache_expire > $key_cache_age )) {
+      $self->_rebuild_key_cache();
+    }
   }
-}
-  _rebuild_key_cache();
+
+  $self->_rebuild_key_cache();
 
   return 1 if exists $key_cache{$address};
   return 0;

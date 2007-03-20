@@ -1,4 +1,4 @@
-Mail/GnuPG version 0.01
+Mail/GnuPG version 0.04
 =======================
 
 Use GnuPG::Interface to process or create PGP signed or encrypted
@@ -6,7 +6,7 @@ email.
 
 (See the inline documentation for more information)
 
-This is a 0.01 release.  It works for me.  It may not work for you.
+This is a 0.04 release.  It works for me.  It may not work for you.
 If it doesn't, patches are appreciated.
 
 INSTALLATION

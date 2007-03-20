@@ -6,3 +6,9 @@ Revision history for Perl extension Mail::GnuPG.
 
 0.02  Thu Mar 27 20:32:21 PST 2003
         - Update Makefile.PL to set prereqs
+
+0.03  Thu Mar 27 22:32:21 PST 2003
+	- Previous version didn't work.
+
+0.04  Fri Apr  4 18:35:09 PST 2003
+	- Previous version didn't work.
