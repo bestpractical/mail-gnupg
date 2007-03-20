@@ -1,5 +1,10 @@
 Revision history for Perl extension Mail::GnuPG.
 
+0.09
+
+  - MIME content type of signed portion will be same as content type
+    of original message.
+
 0.08   Sat Jul 17 19:11:06 PDT 2004
 
 really tiny release for Paul's issue
@@ -28,7 +33,7 @@ really tiny release for Paul's issue
 
 0.06   Wed Jul 23 19:59:51 PDT 2003
 
-  (From Jörn Reder)
+  (From JÃ¶rn Reder)
    - bugfix in decrypt(): with ASCII armor messages the first line of
    the cleartext was removed by MIME::Parser, if the cleartext was no
    entity but simple ASCII text.
@@ -40,7 +45,7 @@ really tiny release for Paul's issue
 
 0.05  Thu Jun 12 23:05:48 PDT 2003
 
-  (From Jörn Reder)
+  (From JÃ¶rn Reder)
   - insecure temp file handling (still insecure, but not that much ;)
   - non portable temp directory handling
   - insecure temp file / MIME::Parser handling in decrypt()

@@ -21,7 +21,7 @@ use 5.006;
 use strict;
 use warnings;
 
-our $VERSION = '0.08';
+our $VERSION = '0.08_900';
 
 use GnuPG::Interface;
 use File::Spec;
@@ -528,7 +528,7 @@ sub mime_sign {
   $entity->make_multipart;
   my $workingentity = $entity;
   if ($entity->parts > 1) {
-    $workingentity = MIME::Entity->build(Type     => "multipart/mixed");
+    $workingentity = MIME::Entity->build(Type => $entity->head->mime_attr("Content-Type"));
     $workingentity->add_part($_) for ($entity->parts);
     $entity->parts([]);
     $entity->add_part($workingentity);
@@ -554,7 +554,6 @@ sub mime_sign {
   # this passes in the plaintext
   my $plaintext;
   if ($workingentity eq $entity) {
-#    $RT::Logger->crit("SINGLEPART");
     $plaintext = $entity->parts(0)->as_string;
   } else {
     $plaintext = $workingentity->as_string;
@@ -570,8 +569,8 @@ sub mime_sign {
   # DEBUG:
 #  print "SIGNING THIS STRING ----->\n";
 #  $plaintext =~ s/\n/-\n/gs;
-#  $RT::Logger->crit("SIGNING:\n$plaintext<<<");
-#  $RT::Logger->crit($entity->as_string);
+#  warn("SIGNING:\n$plaintext<<<");
+#  warn($entity->as_string);
 #  print STDERR $plaintext;
 #  print "<----\n";
   $input->flush();
@@ -601,6 +600,11 @@ sub mime_sign {
   $entity->head->mime_attr("Content-Type","multipart/signed");
   $entity->head->mime_attr("Content-Type.protocol","application/pgp-signature");
 #  $entity->head->mime_attr("Content-Type.micalg","pgp-md5");
+# Richard Hirner notes that Thunderbird/Enigmail really wants a micalg
+# of pgp-sha1 (which will be GPG version dependent.. older versions
+# used md5.  For now, until we can detect which type was used, the end
+# user should read the source code, notice this comment, and insert
+# the appropriate value themselves.
 
   return $exit_value;
 }
@@ -828,7 +832,7 @@ sub _mime_encrypt {
   my $workingentity = $entity;
   $entity->make_multipart;
   if ($entity->parts > 1) {
-    $workingentity = MIME::Entity->build(Type     => "multipart/mixed");
+    $workingentity = MIME::Entity->build(Type => $entity->head->mime_attr("Content-Type"));
     $workingentity->add_part($_) for ($entity->parts);
     $entity->parts([]);
     $entity->add_part($workingentity);
