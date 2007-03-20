@@ -1,6 +1,6 @@
 Revision history for Perl extension Mail::GnuPG.
 
-0.06  soon
+0.06   Wed Jul 23 19:59:51 PDT 2003
 
   (From Jörn Reder)
    - bugfix in decrypt(): with ASCII armor messages the first line of

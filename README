@@ -1,4 +1,4 @@
-Mail/GnuPG version 0.05
+Mail/GnuPG version 0.06
 =======================
 
 Use GnuPG::Interface to process and/or create PGP signed or encrypted
@@ -6,7 +6,7 @@ email.
 
 (See the inline documentation for more information)
 
-This is a 0.05 release.  It works for me and at least one or two other
+This is a 0.06 release.  It works for me and at least one or two other
 people.  It may not work for you.  If it doesn't, patches are
 appreciated.
 
@@ -60,6 +60,22 @@ This program is distributed in the hope that it will be useful, but
 WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See either the
 GNU General Public License or the Artistic License for more details.
+
+NOTES
+
+RFC1847 - Security Multiparts
+http://www.ietf.org/rfc/rfc1847.txt
+
+RFC2015 -  MIME Security with PGP 
+http://www.ietf.org/rfc/rfc2015.txt
+
+KNOWN ISSUES
+
+ #2718 - https://rt.cpan.org/Ticket/Display.html?id=2718
+
+  Mail::GnuPG assumes the signature is calculated on the decoded MIME
+  data (which is the only thing it can get from MIME::Entity).  Jörn
+  Reder is working on a solution.
 
 TODO
 
