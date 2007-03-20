@@ -801,7 +801,7 @@ sub _mime_encrypt {
     if ($sign) {
       $gnupg->sign_and_encrypt( handles => $handles );
     } else {
-      $gnupg->sign_encrypt( handles => $handles );
+      $gnupg->encrypt( handles => $handles );
     }
   };
 
