@@ -420,7 +420,7 @@ sub verify {
 }
 
 # Should this go elsewhere?  The Key handling stuff doesn't seem to
-# make sense in a Mail:: module
+# make sense in a Mail:: module.  
 my %key_cache;
 my $key_cache_age = 0;
 my $key_cache_expire = 60*60*30; # 30 minutes
@@ -878,6 +878,52 @@ sub _mime_encrypt {
 
   $exit_value;
 }
+
+=head2 is_signed
+
+  best guess as to whether a message is signed or not (by looking at
+  the mime type and message content)
+
+ Input:
+   MIME::Entity containing email message to test
+
+ Output:
+  True or False value
+
+=head2 is_encrypted
+
+  best guess as to whether a message is signed or not (by looking at
+  the mime type and message content)
+
+ Input:
+   MIME::Entity containing email message to test
+
+ Output:
+  True or False value
+
+=cut
+
+sub is_signed {
+  my ($self,$entity) = @_;
+  return 1
+    if (($entity->effective_type =~ m!multipart/signed!)
+	||
+	($entity->as_string =~ m!^-----BEGIN PGP SIGNED MESSAGE-----!m));
+  return 0;
+}
+
+sub is_encrypted {
+  my ($self,$entity) = @_;
+  return 1
+    if (($entity->effective_type =~ m!multipart/encrypted!)
+	||
+	($entity->as_string =~ m!^-----BEGIN PGP MESSAGE-----!m));
+  return 0;
+}
+
+# FIXME: there's no reason why is_signed and is_encrypted couldn't be
+# static (class) methods, so maybe we should support that.
+
 
 # Autoload methods go after =cut, and are processed by the autosplit program.
 
