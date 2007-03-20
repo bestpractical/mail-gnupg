@@ -290,7 +290,10 @@ sub get_decrypt_key {
   return if not $key;
 
   # get mail address of this key
-  my $gpg_out = qx[ gpg --with-colons --list-keys $key 2>&1 ];
+  die "Invalid Key Format: $key" unless $key =~ /^[0-9A-F]+$/i;
+  my $cmd = $self->{gpg_path} . " --with-colons --list-keys $key 2>&1";
+  my $gpg_out = qx[ $cmd ];
+  ## FIXME: this should probably use open| instead.
   die "Couldn't find key $key in keyring" if $gpg_out !~ /\S/ or $?;
   my $mail = (split(":", $gpg_out))[9];
 
