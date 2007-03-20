@@ -1,5 +1,13 @@
 Revision history for Perl extension Mail::GnuPG.
 
+0.08   Sat Jul 17 19:11:06 PDT 2004
+
+really tiny release for Paul's issue
+
+  - https://rt.cpan.org/Ticket/Display.html?id=6968
+    IO::Handle::sync not implemented on all systems, can cause Mail::GnuPG to fail 
+  - cleanup some test warnings
+
 0.07   Tue Dec 16 20:32:09 PST 2003
 
   Lots o Documentation Updates
