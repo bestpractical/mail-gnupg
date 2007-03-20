@@ -1,6 +1,8 @@
 Revision history for Perl extension Mail::GnuPG.
 
-0.07
+0.07   Tue Dec 16 20:32:09 PST 2003
+
+  Lots o Documentation Updates
 
   (From Paul J. Schinder)
    - bugfix for encrypt without signing
