@@ -236,7 +236,6 @@ sub verify {
 
   my ($sigfh, $sigfile)
     = File::Temp::tempfile('mgsXXXXXXXX',
-			   DIR => "/tmp",
 			   UNLINK => 1,
 			  );
   print $sigfh $sigtext;
@@ -244,7 +243,6 @@ sub verify {
 
   my ($datafh, $datafile) =
     File::Temp::tempfile('mgdXXXXXX',
-			 DIR => "/tmp",
 			 UNLINK => 1,
 			);
   # Read the (unencoded) body data:
@@ -263,6 +261,10 @@ sub verify {
   my @result = <$error>;
   close $error;
   close $input;
+
+  # we're done with these files, so delete them now for security,
+  # instead of waiting till they get cleaned up later.
+  unlink $sigfile, $datafile;
 
   waitpid $pid, 0;
   my $exit_value  = $? >> 8;
