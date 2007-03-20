@@ -9,6 +9,7 @@ WriteMakefile(
 			    'IO::Handle'       => 0,
 			    'MIME::Entity'     => 0,
 			    'File::Temp'       => 0,
+			    'File::Spec'       => 0,
 			    'MIME::Parser'     => 0,
 			    'Mail::Address'    => 0,
 			    'Test::More',      => 0,

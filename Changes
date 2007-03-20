@@ -14,6 +14,8 @@ Revision history for Perl extension Mail::GnuPG.
    - get_decrypt_key(): fix for gpg not in current path
    - decrypt(): return uid/email on successful decrypt of signed msg
 
+   - verify() : fix tempfile creation location
+
 0.06   Wed Jul 23 19:59:51 PDT 2003
 
   (From Jörn Reder)

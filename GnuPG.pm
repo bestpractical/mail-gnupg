@@ -24,6 +24,7 @@ use warnings;
 our $VERSION = '0.07';
 
 use GnuPG::Interface;
+use File::Spec;
 use File::Temp;
 use IO::Handle;
 use MIME::Entity;
@@ -398,6 +399,7 @@ sub verify {
 
   my ($sigfh, $sigfile)
     = File::Temp::tempfile('mgsXXXXXXXX',
+			   DIR => File::Spec->tmpdir,
 			   UNLINK => 1,
 			  );
   print $sigfh $sigtext;
@@ -405,6 +407,7 @@ sub verify {
 
   my ($datafh, $datafile) =
     File::Temp::tempfile('mgdXXXXXX',
+			 DIR => File::Spec->tmpdir,
 			 UNLINK => 1,
 			);
 
@@ -954,6 +957,7 @@ sub is_encrypted {
 # FIXME: there's no reason why is_signed and is_encrypted couldn't be
 # static (class) methods, so maybe we should support that.
 
+# FIXME: will we properly deal with signed+encrypted stuff?  probably not.
 
 # Autoload methods go after =cut, and are processed by the autosplit program.
 
