@@ -1,5 +1,17 @@
 Revision history for Perl extension Mail::GnuPG.
 
+0.06  soon
+
+  (From Jörn Reder)
+   - bugfix in decrypt(): with ASCII armor messages the first line of
+   the cleartext was removed by MIME::Parser, if the cleartext was no
+   entity but simple ASCII text.
+
+   - new method get_decrypt_key() which returns a secret key and the
+   corresponding mail address, which could be used to decrypt a given
+   encrypted message.
+
+
 0.05  Thu Jun 12 23:05:48 PDT 2003
 
   (From Jörn Reder)
