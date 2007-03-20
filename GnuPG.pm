@@ -308,7 +308,16 @@ sub get_decrypt_key {
   format, or just a single part ascii armored message.
 
  Output:
-  Exit code of gpg.  (0 on success)
+  On error:
+    Exit code of gpg.  (0 on success)
+  On success
+    ( 0,
+      keyid,           # ABCDDCBA
+      emailaddress     # Foo Bar <foo@bar.com>
+    )
+
+   where the keyid is the key that signed it, and emailaddress is full
+   name and email address of the primary uid
 
   $self->{last_message} => any errors from gpg
 
@@ -399,7 +408,15 @@ sub verify {
 
   $self->{last_message} = [@result];
 
-  return $exit_value;
+  return $exit_value if $exit_value; # failure
+
+  # FIXME: these regex are likely to break under non english locales.
+  my $result = join "", @result;
+  my ($keyid)  = $result =~ /using \S+ key ID (.+)$/m;
+  my ($pemail) = $result =~ /Good signature from "(.+)"$/m;
+
+  return ($exit_value,$keyid,$pemail);
+
 }
 
 # Should this go elsewhere?  The Key handling stuff doesn't seem to
