@@ -88,7 +88,21 @@ sub _set_options {
   format, or just a single part ascii armored message.
 
  Output:
-  Exit code of gpg.  (0 on success)
+  On Failure:
+    Exit code of gpg.  (0 on success)
+
+  On Success: (just encrypted)
+    (0, undef, undef)
+
+  On success: (signed and encrypted)
+    ( 0,
+      keyid,           # ABCDDCBA
+      emailaddress     # Foo Bar <foo@bar.com>
+    )
+
+   where the keyid is the key that signed it, and emailaddress is full
+   name and email address of the primary uid
+
 
   $self->{last_message} => any errors from gpg
   $self->{plaintext}    => plaintext output from gpg
@@ -186,7 +200,20 @@ sub decrypt {
   my $entity = $parser->parse_data(\@plaintext);
   $self->{decrypted} = $entity;
 
-  return $exit_value;
+  return $exit_value if $exit_value; # failure
+
+  # if the message was signed and encrypted, extract the signature
+  # information and return it.  In some theory or another, you can't
+  # trust an unsigned encrypted message is from who it says signed it.
+  # (Although I think it would have to go hand in hand at some point.)
+
+  # FIXME: these regex are likely to break under non english locales.
+  my $result = join "", @error_output;
+  my ($keyid)  = $result =~ /using \S+ key ID (.+)$/m;
+  my ($pemail) = $result =~ /Good signature from "(.+)"$/m;
+
+  return ($exit_value,$keyid,$pemail);
+
 }
 
 =head2 get_decrypt_key
