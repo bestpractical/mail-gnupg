@@ -1,5 +1,24 @@
 Revision history for Perl extension Mail::GnuPG.
 
+0.05  Thu Jun 12 23:05:48 PDT 2003
+
+  (From Jörn Reder)
+  - insecure temp file handling (still insecure, but not that much ;)
+  - non portable temp directory handling
+  - insecure temp file / MIME::Parser handling in decrypt()
+  - broken signature verification on quoted printable ascii armor messages
+  - broken MIME canonical conversion (was broken if single CR's or
+    CR/LF sequences were already in the message)
+  - removed line break mangling in mime_encrypt(). RFC3156 doesn't
+    request it.
+
+  new methods:
+
+  clear_sign()        - clearsign the body of an email message
+  ascii_encrypt()     - encrypt an email message body using ascii armor
+  ascii_signencrypt() - encrypt and sign an email message body using
+			ascii armor
+
 0.04  Fri Apr  4 18:35:09 PST 2003
 	- Previous version didn't work.
 

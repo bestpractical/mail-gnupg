@@ -1,13 +1,18 @@
-Mail/GnuPG version 0.04
+Mail/GnuPG version 0.05
 =======================
 
-Use GnuPG::Interface to process or create PGP signed or encrypted
+Use GnuPG::Interface to process and/or create PGP signed or encrypted
 email.
 
 (See the inline documentation for more information)
 
-This is a 0.04 release.  It works for me.  It may not work for you.
-If it doesn't, patches are appreciated.
+This is a 0.05 release.  It works for me and at least one or two other
+people.  It may not work for you.  If it doesn't, patches are
+appreciated.
+
+There is a known issue where some messages may not verify properly
+because they use a fuzzy encoding like Quoted-Printable, and may
+decode slightly differently in different places.
 
 INSTALLATION
 
@@ -62,9 +67,14 @@ TODO
 - Consider nicer/prettier interface
 - Use GnuPG::Interface's internal passphrase handling
 - Add tests
-
+- Use GnuPG::Handle->{direct} to pass files directly to gpg
 
 AUTHOR
 
 Robert Spier
 rspier at cpan.org
+
+Large Contributions from:
+    Jörn Reder 
+    joern at zyn.de
+  
