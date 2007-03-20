@@ -575,7 +575,8 @@ sub mime_sign {
 #  print STDERR $plaintext;
 #  print "<----\n";
   $input->flush();
-  $input->sync();
+  eval { $input->sync() };      # IO::Handle::sync not implemented on
+                                # all systems.
   close $input;
 
   my @signature    = <$output>;   # reading the output
