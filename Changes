@@ -1,5 +1,19 @@
 Revision history for Perl extension Mail::GnuPG.
 
+0.07
+
+  (From Paul J. Schinder)
+   - bugfix for encrypt without signing
+
+  (For Jesse)
+   - verify(): return uid/email on success
+   - new methods: is_signed() and is_encrypted(), which are
+     encapsulations of the simple tests for guessing whether something
+     is signed or encrypted.
+
+   - get_decrypt_key(): fix for gpg not in current path
+   - decrypt(): return uid/email on successful decrypt of signed msg
+
 0.06   Wed Jul 23 19:59:51 PDT 2003
 
   (From Jörn Reder)
