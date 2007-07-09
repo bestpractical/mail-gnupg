@@ -57,14 +57,14 @@ $copy = $me->dup;
 
 is( 0, $mg->clear_sign( $copy ) );
 
-my ($verify,$key,$who) = $mg->verify($copy);
+{ my ($verify,$key,$who) = $mg->verify($copy);
 is( 0, $verify );
 is( $KEY, $key );
 is( $WHO, $who );
 
 is( 1, $mg->is_signed($copy) );
 is( 0, $mg->is_encrypted($copy) );
-
+}
 # Test MIME Encryption Round Trip
 
 # hmm.. the encryption functions don't seem to be working right.

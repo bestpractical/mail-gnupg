@@ -21,7 +21,7 @@ use 5.006;
 use strict;
 use warnings;
 
-our $VERSION = '0.08_900';
+our $VERSION = '0.10';
 
 use GnuPG::Interface;
 use File::Spec;
@@ -181,8 +181,13 @@ sub decrypt {
   close $error;
   close $status_fh;
 
-  waitpid $pid, 0;  # clean up the finished GnuPG process
-  my $exit_value  = $? >> 8;
+  waitpid $pid, 0;
+  my $return = $?;
+   $return = 0 if $return == -1;
+
+  my $exit_value  = $return >> 8;
+  
+
 
   $self->{last_message} = \@error_output;
   $self->{plaintext}    = \@plaintext;
@@ -294,7 +299,12 @@ sub get_decrypt_key {
 
   # clean up the finished GnuPG process
   waitpid $pid, 0;
-  my $exit_value  = $? >> 8;
+  my $return = $?;
+   $return = 0 if $return == -1;
+
+  my $exit_value  = $return >> 8;
+  
+
 
   # set last_message
   $self->{last_message} = \@result;
@@ -437,7 +447,10 @@ sub verify {
   unlink $sigfile, $datafile;
 
   waitpid $pid, 0;
-  my $exit_value  = $? >> 8;
+  my $return = $?;
+   $return = 0 if $return == -1;
+
+  my $exit_value  = $return >> 8;
 
   $self->{last_message} = [@result];
 
@@ -447,6 +460,7 @@ sub verify {
   my $result = join "", @result;
   my ($keyid)  = $result =~ /using \S+ key ID (.+)$/m;
   my ($pemail) = $result =~ /Good signature from "(.+)"$/m;
+
 
   return ($exit_value,$keyid,$pemail);
 
@@ -587,8 +601,12 @@ sub mime_sign {
   close $error;
   close $status_fh;
 
-  waitpid $pid, 0;  # clean up the finished GnuPG process
-  my $exit_value  = $? >> 8;
+  waitpid $pid, 0;
+  my $return = $?;
+   $return = 0 if $return == -1;
+
+  my $exit_value  = $return >> 8;
+
 
   $self->{last_message} = \@error_output;
 
@@ -667,8 +685,11 @@ sub clear_sign {
   close $error;
 
   waitpid $pid, 0;
-  my $exit_value  = $? >> 8;
+  my $return = $?;
+   $return = 0 if $return == -1;
 
+  my $exit_value  = $return >> 8;
+  
   $self->{last_message} = [@error_output];
 
   my $io = $body->open ("w") or die "can't open entity body";
@@ -770,7 +791,11 @@ sub _ascii_encrypt {
   close $error;
 
   waitpid $pid, 0;
-  my $exit_value  = $? >> 8;
+  my $return = $?;
+   $return = 0 if $return == -1;
+
+  my $exit_value  = $return >> 8;
+  
 
   $self->{last_message} = [@error_output];
 
@@ -895,7 +920,14 @@ sub _mime_encrypt {
   close $status_fh;
 
   waitpid $pid, 0;
-  my $exit_value  = $? >> 8;
+  my $return = $?;
+   $return = 0 if $return == -1;
+
+  my $exit_value  = $return >> 8;
+  
+
+  
+  
   $self->{last_message} = [@error_output];
 
 

@@ -1,5 +1,9 @@
 Revision history for Perl extension Mail::GnuPG.
 
+0.10 Mon Jul  9 15:12:10 PDT 2007
+
+  - Fixed "-1" result code from waitpid handling. (On OSX, it can mean 'reaped' not actually an error)
+
 0.09
 
   - MIME content type of signed portion will be same as content type
