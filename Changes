@@ -1,5 +1,14 @@
 Revision history for Perl extension Mail::GnuPG.
 
+0.15 Sat Mar  8 19:51:55 PST 2008
+
+  This is the ntyni release, as he provided most of the fixes:
+
+  - Fix roundtrip test by trusting test keyring.
+  - New test to show blocking issues on large messages.
+  - Switch to a non-blocking (select) based mechanism for interacting
+    with gpg.
+
 0.10 Mon Jul  9 15:12:10 PDT 2007
 
   - Fixed "-1" result code from waitpid handling. (On OSX, it can mean 'reaped' not actually an error)
