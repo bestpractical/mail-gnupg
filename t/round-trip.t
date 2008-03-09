@@ -31,11 +31,14 @@ my $mg = new Mail::GnuPG( key => '49539D60EFEA4EAD',
 
 isa_ok($mg,"Mail::GnuPG");
 
+my $line = "x\n";
+my $string = $line x 100000;
+
 my $copy;
 my $me =  MIME::Entity->build(From    => 'me@myhost.com',
 			      To      => 'you@yourhost.com',
 			      Subject => "Hello, nurse!",
-			      Data    => ["Line 1","Line 2"]);
+			      Data    => [$string]);
 # Test MIME Signing Round Trip
 
 $copy = $me->dup;
