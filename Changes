@@ -1,9 +1,14 @@
 Revision history for Perl extension Mail::GnuPG.
 
+0.15_1 Sat Dec 11 2010
+
+  - Development release
+  - Add support for gnupg-agent
+
 0.15 Sat Mar  8 19:51:55 PST 2008
 
   This is the ntyni release, as he provided most of the fixes:
-
+ 
   - Fix roundtrip test by trusting test keyring.
   - New test to show blocking issues on large messages.
   - Switch to a non-blocking (select) based mechanism for interacting
