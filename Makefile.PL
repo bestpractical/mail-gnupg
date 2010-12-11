@@ -13,6 +13,7 @@ WriteMakefile(
 			    'MIME::Parser'     => 0,
 			    'Mail::Address'    => 0,
 			    'Test::More',      => 0,
+			    'Test::Pod',       => 0
 			   },
     ABSTRACT_FROM       => 'GnuPG.pm', # retrieve abstract from module
     AUTHOR              => 'Robert Spier <rspier@cpan.org>',
