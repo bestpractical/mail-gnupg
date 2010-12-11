@@ -1,12 +1,12 @@
-Mail/GnuPG version 0.07
-=======================
+Mail/GnuPG version 0.15_1
+=========================
 
 Use GnuPG::Interface to process and/or create PGP signed or encrypted
 email.
 
 (See the inline documentation for more information)
 
-This is a 0.07 release.  It works for me and at least four or five
+This is a development release.  It works for me and at least four or five
 other people.  It may not work for you.  If it doesn't, patches are
 appreciated.
 
@@ -89,6 +89,10 @@ AUTHOR
 
 Robert Spier
 rspier at cpan.org
+
+MAINTAINER
+David Bremner
+ddb at cpan.org
 
 Large Contributions from:
     Jörn Reder 
