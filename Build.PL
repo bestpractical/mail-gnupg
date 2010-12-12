@@ -8,7 +8,6 @@ my $build = Module::Build->new
    module_name => 'Mail::GnuPG',
    dist_author => [ 'Robert Spier <rspier@cpan.org>', 
 		    'David Bremner <ddb@cpan.org>'],
-   dist_version_from => 'GnuPG.pm', # finds $VERSION
    requires => {
 		'File::Spec' => 0,
 		'File::Temp' => 0,
