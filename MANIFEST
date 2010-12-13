@@ -5,12 +5,13 @@ MANIFEST
 README
 t/00.load.t
 t/20.inline-verify.t
+t/25.multipart-verify.t
 t/30.inline-decrypt.t
 t/99.pod.t
 t/agent.t
 t/base.t
 t/msg/inline-encrypted-qp.eml
 t/msg/inline-signed-qp.eml
+t/msg/multipart-signed-qp.eml
 t/round-trip.t
 t/test-key.pgp
-
