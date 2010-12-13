@@ -8,6 +8,7 @@ my $build = Module::Build->new
    module_name => 'Mail::GnuPG',
    dist_author => [ 'Robert Spier <rspier@cpan.org>', 
 		    'David Bremner <ddb@cpan.org>'],
+   (sign => 1),
    requires => {
 		'File::Spec' => 0,
 		'File::Temp' => 0,
