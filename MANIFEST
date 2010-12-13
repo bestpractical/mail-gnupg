@@ -10,6 +10,7 @@ t/30.inline-decrypt.t
 t/99.pod.t
 t/agent.t
 t/base.t
+t/import_keys.pl
 t/msg/inline-encrypted-qp.eml
 t/msg/inline-signed-qp.eml
 t/msg/multipart-signed-qp.eml
