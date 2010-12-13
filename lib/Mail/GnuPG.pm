@@ -21,7 +21,7 @@ use 5.006;
 use strict;
 use warnings;
 
-our $VERSION = '0.15_2';
+our $VERSION = '0.15_3';
 my $DEBUG = 0;
 
 use GnuPG::Interface;
