@@ -3,7 +3,8 @@ Changes
 lib/Mail/GnuPG.pm
 MANIFEST
 README
-t/00.load.t
+t/00.signature.t
+t/05.load.t
 t/20.inline-verify.t
 t/25.multipart-verify.t
 t/30.inline-decrypt.t
