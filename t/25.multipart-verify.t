@@ -5,7 +5,6 @@ use Mail::GnuPG;
 use MIME::Entity;
 use strict;
 
-plan tests => 5;
 
 require('t/import_keys.pl');
 my $gpghome=import_keys('t/pubkeys.asc');
@@ -13,6 +12,8 @@ unless (defined($gpghome)){
   plan skip_all => "failed to import GPG keys for testing";
   goto end;
 }
+
+plan tests => 5;
 
 # Main program
 my $parser = new MIME::Parser;
