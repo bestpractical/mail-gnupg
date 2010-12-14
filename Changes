@@ -1,9 +1,10 @@
 Revision history for Perl extension Mail::GnuPG.
 
-0.15_1 Sat Dec 11 2010
+0.16 Tue Dec 14 2010
 
-  - Development release
-  - Add support for gnupg-agent
+  - [RT #60280] Add support for gnupg-agent
+  - [RT #60246] Use undecoded text for decode and get_decrypt_key of inline PGP
+  - [RT #4388, #2718, #46168]  Add test case for verify of encoded bodies
 
 0.15 Sat Mar  8 19:51:55 PST 2008
 
