@@ -339,6 +339,12 @@ sub get_decrypt_key {
   The message can either be in RFC compliant-ish multipart/signed
   format, or just a single part ascii armored message.
 
+  Note that MIME-encoded data should be supplied unmodified inside
+  the MIME::Entity input message, otherwise the signature will be
+  broken. Since MIME-tools version 5.419, this can be achieved with
+  the C<decode_bodies> method of MIME::Parser. See the MIME::Parser
+  documentation for more information.
+
  Output:
   On error:
     Exit code of gpg.  (0 on success)
