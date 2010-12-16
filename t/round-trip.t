@@ -5,7 +5,6 @@ use File::Temp qw(tempdir);
 use Mail::GnuPG;
 use MIME::Entity;
 use strict;
-no warnings 'redefine';         # fix this later
 
 my $KEY = "EFEA4EAD"; # 49539D60EFEA4EAD
 my $WHO = "Mail::GnuPG Test Key <mail\@gnupg.dom>";
