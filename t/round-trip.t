@@ -6,18 +6,15 @@ use Mail::GnuPG;
 use MIME::Entity;
 use strict;
 
-my $KEY = "EFEA4EAD"; # 49539D60EFEA4EAD
+my $FULL_KEY = "49539D60EFEA4EAD";
+my $KEY = substr($FULL_KEY,-8,8);
+
 my $WHO = "Mail::GnuPG Test Key <mail\@gnupg.dom>";
 
-unless ( 0 == system("gpg --version 2>&1 >/dev/null") ) {
-  plan skip_all => "gpg in path required for testing round-trip";
-  goto end;
-}
-
-my $tmpdir = tempdir( "mgtXXXXX", CLEANUP => 1);
-
-unless ( 0 == system("gpg --homedir $tmpdir --trusted-key 0x49539D60EFEA4EAD --import t/test-key.pgp 2>&1 >/dev/null")) {
-  plan skip_all => "unable to import testing keys";
+require('t/import_keys.pl');
+my $gpghome=import_keys('t/test-key.pgp',$FULL_KEY);
+unless (defined($gpghome)){
+  plan skip_all => "failed to import GPG keys for testing";
   goto end;
 }
 
@@ -25,7 +22,7 @@ plan tests => 20;
 
 
 my $mg = new Mail::GnuPG( key => '49539D60EFEA4EAD',
-			  keydir => $tmpdir,
+			  keydir => $gpghome,
 			  passphrase => 'passphrase');
 
 isa_ok($mg,"Mail::GnuPG");
