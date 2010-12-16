@@ -7,7 +7,7 @@ sub import_keys($){
   }
 
   my $gpghome = tempdir( "mgtXXXXX", CLEANUP => 1);
-  unless ( 0 == system("gpg --homedir $gpghome --import t/pubkeys.asc 2>&1 >/dev/null")) {
+  unless ( 0 == system("gpg --homedir $gpghome --import $filename 2>&1 >/dev/null")) {
     return undef;
   }
   return $gpghome;
