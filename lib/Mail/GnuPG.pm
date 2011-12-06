@@ -45,6 +45,7 @@ use Errno qw(EPIPE);
    keydir => gpg configuration/key directory
    passphrase => primary key password
    use_agent => use gpg-agent if non-zero
+   always_trust => always trust a public key
    # FIXME: we need more things here, maybe primary key id.
 
 
@@ -78,6 +79,10 @@ sub _set_options {
 #			      ( defined $self->{passphrase} ?
 #				( passphrase => $self->{passphrase} ) : () ),
 			    );
+
+  if (defined $self->{always_trust}) {
+    $gnupg->options->always_trust($self->{always_trust})
+  }
   $gnupg->call( $self->{gpg_path} ) if defined $self->{gpg_path};
 }
 
