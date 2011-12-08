@@ -44,7 +44,8 @@ use Errno qw(EPIPE);
    key    => gpg key id
    keydir => gpg configuration/key directory
    passphrase => primary key password
-
+   use_agent => use gpg-agent if non-zero
+   always_trust => always trust a public key
    # FIXME: we need more things here, maybe primary key id.
 
 
@@ -58,6 +59,7 @@ sub new {
 	       keydir	    => undef,
 	       passphrase   => "",
 	       gpg_path	    => "gpg",
+	       use_agent    => 0,	
 	       @_
 	      };
   $self->{last_message} = [];
@@ -77,6 +79,10 @@ sub _set_options {
 #			      ( defined $self->{passphrase} ?
 #				( passphrase => $self->{passphrase} ) : () ),
 			    );
+
+  if (defined $self->{always_trust}) {
+    $gnupg->options->always_trust($self->{always_trust})
+  }
   $gnupg->call( $self->{gpg_path} ) if defined $self->{gpg_path};
 }
 
@@ -113,6 +119,11 @@ sub _set_options {
   $self->{decrypted}    => parsed output as MIME::Entity
 
 =cut
+
+sub _agent_args{
+  my $self=shift;
+  return $self->{use_agent} ? ('command_args' => ['--use-agent']) : ();
+}
 
 sub decrypt {
   my ($self, $message) = @_;
@@ -161,7 +172,7 @@ sub decrypt {
 				   );
 
   # this sets up the communication
-  my $pid = $gnupg->decrypt( handles => $handles );
+  my $pid = $gnupg->decrypt( handles => $handles , $self->_agent_args );
 
   die "NO PASSPHRASE" unless defined $passphrase_fh;
   my $read = _communicate([$output, $error, $status_fh],
@@ -542,7 +553,7 @@ sub mime_sign {
 				     passphrase => $passphrase_fh,
 				     status     => $status_fh,
 				   );
-  my $pid = $gnupg->detach_sign( handles => $handles );
+  my $pid = $gnupg->detach_sign( handles => $handles, $self->_agent_args );
   die "NO PASSPHRASE" unless defined $passphrase_fh;
 
   # this passes in the plaintext
@@ -641,7 +652,7 @@ sub clear_sign {
 	stderr	=> $error,
   );
 
-  my $pid = $gnupg->clearsign ( handles => $handles );
+  my $pid = $gnupg->clearsign ( handles => $handles, $self->_agent_args );
 
   my $plaintext = $body->as_string;
 
@@ -744,7 +755,7 @@ sub _ascii_encrypt {
 
   my $pid = do {
   	if ( $sign ) {
-		$gnupg->sign_and_encrypt ( handles => $handles );
+		$gnupg->sign_and_encrypt ( handles => $handles, $self->_agent_args );
 	} else {
 		$gnupg->encrypt ( handles => $handles );
 	}
@@ -844,7 +855,7 @@ sub _mime_encrypt {
 
   my $pid = do {
     if ($sign) {
-      $gnupg->sign_and_encrypt( handles => $handles );
+      $gnupg->sign_and_encrypt( handles => $handles, $self->_agent_args );
     } else {
       $gnupg->encrypt( handles => $handles );
     }
