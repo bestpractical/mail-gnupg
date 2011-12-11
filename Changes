@@ -1,5 +1,9 @@
 Revision history for Perl extension Mail::GnuPG.
 
+0.17 Sun Dec 10 2011
+
+  - [RT #73036] Support trust-model = always-trust
+
 0.16 Tue Dec 14 2010
 
   - [RT #60280] Add support for gnupg-agent
